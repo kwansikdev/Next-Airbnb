@@ -3,11 +3,15 @@ import Link from 'next/link';
 
 import styled from 'styled-components';
 
+import useModal from '../hooks/useModal';
+
 import palette from '../styles/palette';
 import AirbnbLogoIcon from '../public/static/svg/logo/logo.svg';
 import AirbnbLogoTextIcon from '../public/static/svg/logo/logo_text.svg';
+import HamburgerIcon from '../public/static/svg/header/hamburger.svg';
+import SignUpModal from './auth/SignUpModal';
 
-const Container = styled.header`
+const Container = styled.div`
   position: sticky;
   top: 0;
   display: flex;
@@ -60,9 +64,35 @@ const Container = styled.header`
       }
     }
   }
+
+  .header-user-profile {
+    display: flex;
+    align-items: center;
+    background-color: #fff;
+    height: 42px;
+    padding: 0 6px 0 16px;
+    border: 0;
+    border-radius: 21px;
+    box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.18);
+    outline: none;
+    cursor: pointer;
+
+    &:hover {
+      box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.12);
+    }
+
+    .header-user-profile-image {
+      width: 30px;
+      height: 30px;
+      margin-left: 8px;
+      border-radius: 50%;
+    }
+  }
 `;
 
 const Header: React.FC = () => {
+  const { openModal, closeModal, ModalPortal } = useModal();
+
   return (
     <>
       <Container>
@@ -73,13 +103,17 @@ const Header: React.FC = () => {
           </a>
         </Link>
         <div className='header-auth-buttons'>
-          <button type='button' className='header-sign-up-button'>
+          <button type='button' className='header-sign-up-button' onClick={openModal}>
             회원가입
           </button>
           <button type='button' className='header-login-button'>
             로그인
           </button>
         </div>
+
+        <ModalPortal>
+          <SignUpModal closeModal={closeModal} />
+        </ModalPortal>
       </Container>
     </>
   );
