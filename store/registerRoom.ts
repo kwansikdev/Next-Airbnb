@@ -1,4 +1,4 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 type RegisterRoomState = {
   // 건물 유형 큰 범주
@@ -21,7 +21,24 @@ const initialState: RegisterRoomState = {
 const registerRoom = createSlice({
   name: 'registerRoom',
   initialState,
-  reducers: {},
+  reducers: {
+    //* 큰 건물 유형 변경하기
+    setLargeBuildingType(state, action: PayloadAction<string>) {
+      if (action.payload === '') {
+        state.largeBuildingType = null;
+      }
+
+      state.largeBuildingType = action.payload;
+    },
+    //* 건물 유형 변경하기
+    setBuildingType(state, action: PayloadAction<string>) {
+      if (action.payload === '') {
+        state.buildingType = null;
+      }
+
+      state.buildingType = action.payload;
+    },
+  },
 });
 
 export const registerRoomAictions = { ...registerRoom.actions };
