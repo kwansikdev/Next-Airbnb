@@ -74,6 +74,15 @@ const RegisterRoomBuilding: React.FC = () => {
   const roomType = useSelector((state) => state.registerRoom.roomType);
   const isSetUpForGuest = useSelector((state) => state.registerRoom.isSetUpForGuest);
 
+  // 모든 값이 있는지 확인하기
+  const isValid = useMemo(() => {
+    if (!largeBuildingType || !buildingType || !roomType || !isSetUpForGuest === null) {
+      return false;
+    }
+
+    return true;
+  }, [largeBuildingType, buildingType, roomType, isSetUpForGuest]);
+
   // 선택된 건물 유형 options
   const defailtBuildingOptions = useMemo(() => {
     switch (largeBuildingType) {
@@ -159,6 +168,7 @@ const RegisterRoomBuilding: React.FC = () => {
           disabledOptions={disabledlargeBuildingTypeOptions}
           label='우선 범위를 좁혀볼까요?'
           options={largeBuildingTypeList}
+          isValid={!!largeBuildingType}
           onChange={onChangeLargeBuildingType}
         />
       </div>
@@ -166,9 +176,10 @@ const RegisterRoomBuilding: React.FC = () => {
         <Selector
           type='register'
           value={undefined}
-          disabled={!largeBuildingType}
+          disabled={!buildingType}
           label='건물 유형을 선택하세요'
           options={defailtBuildingOptions}
+          isValid={!!buildingType}
           onChange={onChangeBuildingType}
         />
       </div>
@@ -179,6 +190,7 @@ const RegisterRoomBuilding: React.FC = () => {
               label='게스트가 묵게 될 숙소 유형을 골라주세요'
               value={roomType}
               options={roomTypeRadioOptions}
+              isValid={!!roomType}
               onChange={onChangeRoomType}
             />
           </div>
@@ -193,7 +205,7 @@ const RegisterRoomBuilding: React.FC = () => {
           </div>
         </>
       )}
-      <RegisterRoomFooter isValid={false} prevHref='/' nextHref='/room/register/bedrooms' />
+      <RegisterRoomFooter isValid={isValid} prevHref='/' nextHref='/room/register/bedrooms' />
     </Container>
   );
 };
