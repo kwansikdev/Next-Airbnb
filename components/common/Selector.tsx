@@ -114,24 +114,24 @@ const Container = styled.div<SelectorContainerProps>`
 `;
 
 interface Props extends React.SelectHTMLAttributes<HTMLSelectElement> {
+  type?: 'register' | 'normal';
+  value?: string;
+  disabledOptions?: string[];
   label?: string;
   options?: string[];
-  value?: string;
   isValid?: boolean;
-  useValidation?: boolean;
   errorMessage?: string;
-  type?: 'register' | 'normal';
-  disabledOptions?: string[];
+  useValidation?: boolean;
 }
 
 const Selector: React.FC<Props> = ({
+  type = 'normal',
+  disabledOptions = [],
   label,
   options = [],
   isValid,
-  useValidation = true,
   errorMessage = '옵션을 선택하세요.',
-  type = 'normal',
-  disabledOptions = [],
+  useValidation = true,
   ...props
 }) => {
   const validateMode = useSelector((state) => state.common.validateMode);
@@ -140,10 +140,9 @@ const Selector: React.FC<Props> = ({
     <Container isValid={!!isValid} validateMode={useValidation && validateMode} type={type}>
       <label>
         {label && <span>{label}</span>}
-
         <select {...props}>
           {disabledOptions.map((option, index) => (
-            <option key={index} value={option} disabled>
+            <option key={index} value={option}>
               {option}
             </option>
           ))}

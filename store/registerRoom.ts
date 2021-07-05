@@ -22,7 +22,7 @@ const registerRoom = createSlice({
   name: 'registerRoom',
   initialState,
   reducers: {
-    //* 큰 건물 유형 변경하기
+    // 큰 건물 유형 변경하기
     setLargeBuildingType(state, action: PayloadAction<string>) {
       if (action.payload === '') {
         state.largeBuildingType = null;
@@ -30,13 +30,21 @@ const registerRoom = createSlice({
 
       state.largeBuildingType = action.payload;
     },
-    //* 건물 유형 변경하기
+    // 건물 유형 변경하기
     setBuildingType(state, action: PayloadAction<string>) {
       if (action.payload === '') {
         state.buildingType = null;
       }
 
       state.buildingType = action.payload;
+    },
+    // 숙소 유형 변경하기
+    setRoomType(state, action: PayloadAction<'entire' | 'private' | 'public'>) {
+      state.roomType = action.payload;
+    },
+    // 게스트용 숙소인지 변경하기
+    setIsSetUpForGuest(state, action: PayloadAction<boolean>) {
+      state.isSetUpForGuest = action.payload;
     },
   },
 });
