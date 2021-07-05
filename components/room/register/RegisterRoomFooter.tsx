@@ -1,12 +1,12 @@
 import React, { useEffect } from 'react';
 import Link from 'next/link';
 
-import Button from '../common/Button';
+import Button from '../../common/Button';
 
 import styled from 'styled-components';
-import palette from '../../styles/palette';
-import BackArrowIcon from '../../public/static/svg/register/register_room_footer_back_arrow.svg';
-import useValidateMode from '../../hooks/useValidateMode';
+import palette from '../../../styles/palette';
+import BackArrowIcon from '../../../public/static/svg/register/register_room_footer_back_arrow.svg';
+import useValidateMode from '../../../hooks/useValidateMode';
 
 const Container = styled.footer`
   background-color: #fff;
