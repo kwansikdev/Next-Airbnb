@@ -67,6 +67,14 @@ const registerRoom = createSlice({
     setMaximumGuestCount(state, action: PayloadAction<number>) {
       state.maximumGuestCount = action.payload;
     },
+    // 침실 개수 변경하기
+    setBedroomCount(state, action: PayloadAction<number>) {
+      state.bedroomCount = action.payload;
+    },
+    // 침대 최대 개수 변경하기
+    setBedCount(state, action: PayloadAction<number>) {
+      state.bedCount = action.payload;
+    },
   },
 });
 
