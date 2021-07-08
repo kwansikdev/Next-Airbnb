@@ -1,4 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { bedroomCountList } from '../lib/staticData';
 import { BedType } from '../types/room';
 
 type RegisterRoomState = {
@@ -61,6 +62,10 @@ const registerRoom = createSlice({
     // 게스트용 숙소인지 변경하기
     setIsSetUpForGuest(state, action: PayloadAction<boolean>) {
       state.isSetUpForGuest = action.payload;
+    },
+    // 최대 숙박 인원 변경하기
+    setMaximumGuestCount(state, action: PayloadAction<number>) {
+      state.maximumGuestCount = action.payload;
     },
   },
 });
