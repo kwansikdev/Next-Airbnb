@@ -31,6 +31,7 @@ const RegisterButtonStyle = css`
 
 const Container = styled.button<{ styleType: 'normal' | 'register' }>`
   ${({ styleType }) => (styleType === 'normal' ? normalButtonStyle : RegisterButtonStyle)}
+  ${(props) => getButtonColor(props.color || '')};
 `;
 
 // 버튼 색상 구하기
@@ -38,6 +39,8 @@ const getButtonColor = (color: string) => {
   switch (color) {
     case 'dark_cyan':
       return css`
+        /* border: 2px solid ${palette.dark_cyan}; */
+        color: #fff;
         background-color: ${palette.dark_cyan};
       `;
     case 'white':
