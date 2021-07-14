@@ -198,9 +198,9 @@ const RegisterRoomBuilding: React.FC = () => {
             <RadioGroup
               label='게스트만 사용하도록 만들어진 숙소인가요?'
               value={isSetUpForGuest}
-              onChange={onChangeIsSetUpForGuest}
               options={isSetUpForGuestOptions}
               isValid={isSetUpForGuest !== null}
+              onChange={onChangeIsSetUpForGuest}
             />
           </div>
         </>

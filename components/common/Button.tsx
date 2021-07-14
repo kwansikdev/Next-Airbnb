@@ -2,25 +2,47 @@ import React from 'react';
 import styled, { css } from 'styled-components';
 import palette from '../../styles/palette';
 
-const Container = styled.button`
+const normalButtonStyle = css`
   background-color: ${palette.bittersweet};
   width: 100%;
   height: 48px;
+  padding: 0 15px;
   border: 0;
   border-radius: 4px;
   outline: none;
   cursor: pointer;
-  color: #fff;
-  font-size: 16px;
-  font-weight: 800;
-  ${(props) => getButtonColor(props.color || '')};
+  color: ${palette.gray_48};
+  font-size: 18px;
+  font-weight: 700;
 `;
 
+const RegisterButtonStyle = css`
+  background-color: #fff;
+  width: 161px;
+  height: 45px;
+  border: 1px solid ${palette.gray_c4};
+  border-radius: 4px;
+  outline: none;
+  cursor: pointer;
+  color: ${palette.gray_48};
+  font-size: 18px;
+  font-weight: 700;
+`;
+
+const Container = styled.button<{ styleType: 'normal' | 'register' }>`
+  ${({ styleType }) => (styleType === 'normal' ? normalButtonStyle : RegisterButtonStyle)}
+`;
+
+// 버튼 색상 구하기
 const getButtonColor = (color: string) => {
   switch (color) {
     case 'dark_cyan':
       return css`
         background-color: ${palette.dark_cyan};
+      `;
+    case 'white':
+      return css`
+        background-color: #fff;
       `;
     default:
       return css`
@@ -31,12 +53,13 @@ const getButtonColor = (color: string) => {
 
 interface Props extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   children: React.ReactNode;
-  color?: 'dark_cyan';
+  color?: 'dark_cyan' | 'white';
+  styleType?: 'normal' | 'register';
 }
 
-const Button: React.FC<Props> = ({ children, color, ...props }) => {
+const Button: React.FC<Props> = ({ children, color, styleType = 'normal', ...props }) => {
   return (
-    <Container {...props} color={color}>
+    <Container {...props} color={color} styleType={styleType}>
       {children}
     </Container>
   );
