@@ -3,9 +3,7 @@ import { useDispatch } from 'react-redux';
 
 import Counter from '../../common/Counter';
 import Selector from '../../common/Selector';
-import Button from '../../common/Button';
-
-import RegisterRoomBedTypes from './RegisterRoomBedTypes';
+import RegisterRoomBedList from './RegisterRoomBedList';
 
 import { bedroomCountList } from '../../../lib/staticData';
 import { getNumber } from '../../../lib/utils';
@@ -15,7 +13,6 @@ import { registerRoomAictions } from '../../../store/registerRoom';
 
 import styled from 'styled-components';
 import palette from '../../../styles/palette';
-import bedrooms from '../../../pages/room/register/bedrooms';
 
 const Container = styled.div`
   padding: 62px 30px 100px;
@@ -139,26 +136,7 @@ const RegisterRoomBedrooms = () => {
         각 침실에 놓인 침대 우형을 명시하면 숙소에 침대가 어떻게 구비되어 있는지 게스트가 잘 파악할
         수 있습니다.
       </p>
-      {/* <div className='register-room-bed-type-list-wrapper'>
-        {bedList.map((bedroom) => (
-          <div className='register-room-bedroom'>
-            <div className='register-room-bed-type-top'>
-              <div className='register-room-bed-type-bedroom-texts'>
-                <p className='register-room-bed-type-bedroom'>{bedroom.id}번 침실</p>
-                <p className='register-room-bed-type-bedroom-counts'>침대 0개</p>
-              </div>
-              <Button color='white' styleType='register'>
-                침대 추가하기
-              </Button>
-            </div>
-          </div>
-        ))}
-      </div> */}
-      <ul className='register-room-bed-type-list-wrapper'>
-        {bedList.map((bedroom) => (
-          <RegisterRoomBedTypes bedroom={bedroom} />
-        ))}
-      </ul>
+      <RegisterRoomBedList />
     </Container>
   );
 };
