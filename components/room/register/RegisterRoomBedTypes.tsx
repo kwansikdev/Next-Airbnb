@@ -3,7 +3,7 @@ import { useDispatch } from 'react-redux';
 
 import styled from 'styled-components';
 import { bedTypes } from '../../../lib/staticData';
-import { registerRoomAictions } from '../../../store/registerRoom';
+import { registerRoomActions } from '../../../store/registerRoom';
 import palette from '../../../styles/palette';
 import { BedType } from '../../../types/room';
 import Button from '../../common/Button';
@@ -106,7 +106,7 @@ const RegisterRoomBedType: React.FC<Props> = ({ bedroom }) => {
                 value={bedroom.beds.find((bed) => bed.type === type)?.count || 0}
                 onChange={(value) =>
                   dispatch(
-                    registerRoomAictions.setBedTypeCount({
+                    registerRoomActions.setBedTypeCount({
                       bedroomId: bedroom.id,
                       type,
                       count: value,

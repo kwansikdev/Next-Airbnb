@@ -2,7 +2,7 @@ import React, { useMemo } from 'react';
 import { useDispatch } from 'react-redux';
 
 import { useSelector } from '../../../store';
-import { registerRoomAictions } from '../../../store/registerRoom';
+import { registerRoomActions } from '../../../store/registerRoom';
 
 import Selector from '../../common/Selector';
 
@@ -89,42 +89,42 @@ const RegisterRoomBuilding: React.FC = () => {
       case '아파트': {
         const { apartmentBuildingTypeList } = require('../../../lib/staticData');
 
-        dispatch(registerRoomAictions.setBuildingType(apartmentBuildingTypeList[0]));
+        dispatch(registerRoomActions.setBuildingType(apartmentBuildingTypeList[0]));
 
         return apartmentBuildingTypeList;
       }
       case '주택': {
         const { houstBuildingTypeList } = require('../../../lib/staticData');
 
-        dispatch(registerRoomAictions.setBuildingType(houstBuildingTypeList[0]));
+        dispatch(registerRoomActions.setBuildingType(houstBuildingTypeList[0]));
 
         return houstBuildingTypeList;
       }
       case '별채': {
         const { secondaryUnitBuildingTypeList } = require('../../../lib/staticData');
 
-        dispatch(registerRoomAictions.setBuildingType(secondaryUnitBuildingTypeList[0]));
+        dispatch(registerRoomActions.setBuildingType(secondaryUnitBuildingTypeList[0]));
 
         return secondaryUnitBuildingTypeList;
       }
       case '독특한 숙소': {
         const { uniqueSpaceBuildingTypeList } = require('../../../lib/staticData');
 
-        dispatch(registerRoomAictions.setBuildingType(uniqueSpaceBuildingTypeList[0]));
+        dispatch(registerRoomActions.setBuildingType(uniqueSpaceBuildingTypeList[0]));
 
         return uniqueSpaceBuildingTypeList;
       }
       case 'B&B': {
         const { bnbBuildingTypeList } = require('../../../lib/staticData');
 
-        dispatch(registerRoomAictions.setBuildingType(bnbBuildingTypeList[0]));
+        dispatch(registerRoomActions.setBuildingType(bnbBuildingTypeList[0]));
 
         return bnbBuildingTypeList;
       }
       case '부티크호텔': {
         const { boutiquesHotelBuildingTypeList } = require('../../../lib/staticData');
 
-        dispatch(registerRoomAictions.setBuildingType(boutiquesHotelBuildingTypeList[0]));
+        dispatch(registerRoomActions.setBuildingType(boutiquesHotelBuildingTypeList[0]));
 
         return boutiquesHotelBuildingTypeList;
       }
@@ -135,12 +135,12 @@ const RegisterRoomBuilding: React.FC = () => {
 
   // 큰 범위 건물 유형 변경 시
   const onChangeLargeBuildingType = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    dispatch(registerRoomAictions.setLargeBuildingType(e.target.value));
+    dispatch(registerRoomActions.setLargeBuildingType(e.target.value));
   };
 
   // 상세 건물 유형 변경 시
   const onChangeBuildingType = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    dispatch(registerRoomAictions.setBuildingType(e.target.value));
+    dispatch(registerRoomActions.setBuildingType(e.target.value));
   };
 
   // 숙소 유형 변경 시
@@ -148,12 +148,12 @@ const RegisterRoomBuilding: React.FC = () => {
     console.log(value);
     // const selected = e.target.value;
 
-    dispatch(registerRoomAictions.setRoomType(value as 'entire' | 'private' | 'public'));
+    dispatch(registerRoomActions.setRoomType(value as 'entire' | 'private' | 'public'));
   };
 
   // 게스트용 숙소인지 변경 시
   const onChangeIsSetUpForGuest = (value: any) => {
-    dispatch(registerRoomAictions.setIsSetUpForGuest(value));
+    dispatch(registerRoomActions.setIsSetUpForGuest(value));
   };
 
   return (

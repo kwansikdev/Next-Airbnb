@@ -9,7 +9,7 @@ import { bedroomCountList } from '../../../lib/staticData';
 import { getNumber } from '../../../lib/utils';
 
 import { useSelector } from '../../../store';
-import { registerRoomAictions } from '../../../store/registerRoom';
+import { registerRoomActions } from '../../../store/registerRoom';
 
 import styled from 'styled-components';
 import palette from '../../../styles/palette';
@@ -95,15 +95,15 @@ const RegisterRoomBedrooms = () => {
   const bedList = useSelector((state) => state.registerRoom.bedList);
 
   const onChangeMaximumGuestCount = (value: number) => {
-    dispatch(registerRoomAictions.setMaximumGuestCount(value));
+    dispatch(registerRoomActions.setMaximumGuestCount(value));
   };
 
   const onChangeBedroomCount = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    dispatch(registerRoomAictions.setBedroomCount(getNumber(e.target.value) || 0));
+    dispatch(registerRoomActions.setBedroomCount(getNumber(e.target.value) || 0));
   };
 
   const onChangeBedCount = (value: number) => {
-    dispatch(registerRoomAictions.setBedCount(value));
+    dispatch(registerRoomActions.setBedCount(value));
   };
 
   return (
