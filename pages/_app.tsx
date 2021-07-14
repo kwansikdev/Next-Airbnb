@@ -36,7 +36,6 @@ app.getInitialProps = async (context: AppContext) => {
       const { data } = await meAPI();
 
       store.dispatch(userActions.setLoggedUser(data));
-      console.log('state:', store.getState());
     }
   } catch (e) {
     console.log(e);
