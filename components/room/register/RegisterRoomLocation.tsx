@@ -106,6 +106,18 @@ const RegisterRoomLocation: React.FC<Props> = () => {
     dispatch(registerRoomActions.setPostcode(e.target.value));
   };
 
+  // 현재 위치 불러오기에 성공했을 때
+  const onSuccessGetLocation = ({ coords }: { coords: GeolocationCoordinates }) => {
+    console.log(coords);
+  };
+
+  // 현재 위치 사용 클릭 시
+  const onClickCurrentLocation = () => {
+    navigator.geolocation.getCurrentPosition(onSuccessGetLocation, (e) => {
+      console.log(e);
+    });
+  };
+
   return (
     <Container>
       <h2>숙소의 위치를 알려주세요.</h2>
@@ -115,7 +127,12 @@ const RegisterRoomLocation: React.FC<Props> = () => {
       </p>
 
       <div className='register-room-location-button-wrapper'>
-        <Button color='dark_cyan' colorReverse icon={<NavigationIcon />}>
+        <Button
+          color='dark_cyan'
+          colorReverse
+          icon={<NavigationIcon />}
+          onClick={onClickCurrentLocation}
+        >
           현재 위치 사용
         </Button>
       </div>
