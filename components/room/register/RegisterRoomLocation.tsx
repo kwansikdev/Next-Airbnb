@@ -125,7 +125,7 @@ const RegisterRoomLocation: React.FC<Props> = () => {
       dispatch(registerRoomActions.setDetailAddress(currentLocation.detailAddress));
       dispatch(registerRoomActions.setPostcode(currentLocation.postcode));
       dispatch(registerRoomActions.setLatitude(currentLocation.latitude));
-      dispatch(registerRoomActions.setlongitude(currentLocation.longitude));
+      dispatch(registerRoomActions.setLongitude(currentLocation.longitude));
     } catch (e) {
       console.log(e);
       alert(e?.message);
@@ -181,9 +181,9 @@ const RegisterRoomLocation: React.FC<Props> = () => {
       <div className='register-room-location-detail-address'>
         <Input
           label='동호수(선택 사항)'
-          useValidation={false}
           value={detailAddress}
           onChange={onChangeDetailAddress}
+          useValidation={false}
         />
       </div>
       <div className='register-room-location-postcode'>

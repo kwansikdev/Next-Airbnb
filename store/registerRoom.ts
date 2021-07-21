@@ -202,7 +202,7 @@ const registerRoom = createSlice({
     setLatitude(state, action: PayloadAction<number>) {
       state.latitude = action.payload;
     },
-    setlongitude(state, action: PayloadAction<number>) {
+    setLongitude(state, action: PayloadAction<number>) {
       state.longitude = action.payload;
     },
   },
