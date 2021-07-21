@@ -18,6 +18,14 @@ type RegisterRoomState = {
   publicBedList: { type: BedType; count: number }[];
   bathroomCount: number;
   bathroomType: 'private' | 'public' | null;
+  country: string;
+  city: string;
+  district: string;
+  streetAddress: string;
+  detailAddress: string;
+  postcode: string;
+  latitude: number;
+  longitude: number;
 };
 
 const initialState: RegisterRoomState = {
@@ -37,6 +45,22 @@ const initialState: RegisterRoomState = {
   publicBedList: [],
   bathroomCount: 1,
   bathroomType: null,
+  // 국가/지역
+  country: '',
+  // 시/도
+  city: '',
+  // 시/군/구
+  district: '',
+  // 도로명 주소
+  streetAddress: '',
+  // 동호수
+  detailAddress: '',
+  // 우편번호
+  postcode: '',
+  // 위도
+  latitude: 0,
+  // 경도
+  longitude: 0,
 };
 
 const registerRoom = createSlice({
@@ -156,6 +180,30 @@ const registerRoom = createSlice({
     },
     setBathroomType(state, action: PayloadAction<'private' | 'public'>) {
       state.bathroomType = action.payload;
+    },
+    setCountry(state, action: PayloadAction<string>) {
+      state.country = action.payload;
+    },
+    setCity(state, action: PayloadAction<string>) {
+      state.city = action.payload;
+    },
+    setDistrict(state, action: PayloadAction<string>) {
+      state.district = action.payload;
+    },
+    setStreetAddress(state, action: PayloadAction<string>) {
+      state.streetAddress = action.payload;
+    },
+    setDetailAddress(state, action: PayloadAction<string>) {
+      state.detailAddress = action.payload;
+    },
+    setPostcode(state, action: PayloadAction<string>) {
+      state.postcode = action.payload;
+    },
+    setLatitude(state, action: PayloadAction<number>) {
+      state.latitude = action.payload;
+    },
+    setLongitude(state, action: PayloadAction<number>) {
+      state.longitude = action.payload;
     },
   },
 });
