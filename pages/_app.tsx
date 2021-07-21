@@ -1,4 +1,5 @@
 import App, { AppContext, AppProps } from 'next/app';
+import Head from 'next/head';
 import axios from 'axios';
 
 import { meAPI } from '../lib/api/auth';
@@ -16,6 +17,9 @@ const app = ({ Component, pageProps }: AppProps) => {
   return (
     <>
       <GlobalStyle />
+      <Head>
+        <title>Next-Airbnb</title>
+      </Head>
       <Header />
       <Component {...pageProps} />
       <div id='root-modal' />
