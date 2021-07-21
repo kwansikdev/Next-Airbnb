@@ -39,7 +39,7 @@ interface Props {
   isValid?: boolean;
 }
 
-const RegisterRoomFooter: React.FC<Props> = ({ prevHref, nextHref, isValid }) => {
+const RegisterRoomFooter: React.FC<Props> = ({ prevHref, nextHref, isValid = true }) => {
   const { setValidateMode } = useValidateMode();
 
   const onClickNext = (e: React.MouseEvent<HTMLButtonElement>) => {
