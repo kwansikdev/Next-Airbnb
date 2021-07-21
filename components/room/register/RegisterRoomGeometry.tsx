@@ -121,7 +121,7 @@ const RegisterRoomGeometry = () => {
       <div className='register-room-geometry-map-wrapper'>
         <div ref={mapRef} id='map' />
       </div>
-      <RegisterRoomFooter prevHref='/room/register/location' nextHref='/room/register/amentities' />
+      <RegisterRoomFooter prevHref='/room/register/location' nextHref='/room/register/amenities' />
     </Container>
   );
 };
