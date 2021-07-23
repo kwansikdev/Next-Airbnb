@@ -1,14 +1,20 @@
 import React from 'react';
 import { isEmpty } from 'lodash';
+import { useDispatch } from 'react-redux';
 
 import { useSelector } from '../../../store';
 
 import Button from '../../common/Button';
 
+import RegisterRoomPhotoCardList from './RegisterRoomPhotoCardList';
+import RegisterRoomFooter from './RegisterRoomFooter';
+
+import { uploadFileAPI } from '../../../lib/api/file';
+import { registerRoomActions } from '../../../store/registerRoom';
+
 import styled from 'styled-components';
 import palette from '../../../styles/palette';
 import UploadIcon from '../../../public/static/svg/register/upload.svg';
-import { uploadFileAPI } from '../../../lib/api/file';
 
 const Container = styled.div`
   padding: 62px 30px 100px;
@@ -38,7 +44,7 @@ const Container = styled.div`
     align-items: center;
     width: 858px;
     height: 433px;
-    margin: auto;
+    margin: auto 0;
     border: 2px dashed ${palette.gray_bb};
     border-radius: 6px;
 
@@ -58,6 +64,7 @@ const Container = styled.div`
 `;
 
 const RegisterRoomPhoto: React.FC = () => {
+  const dispatch = useDispatch();
   const photos = useSelector((state) => state.registerRoom.photos);
 
   const uploadImage = async (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -69,7 +76,11 @@ const RegisterRoomPhoto: React.FC = () => {
 
       formdata.append('file', file);
       try {
-        await uploadFileAPI(formdata);
+        const { data } = await uploadFileAPI(formdata);
+
+        if (data) {
+          dispatch(registerRoomActions.setPhotos([...photos, data]));
+        }
       } catch (e) {
         console.log(e);
       }
@@ -94,6 +105,11 @@ const RegisterRoomPhoto: React.FC = () => {
           </>
         </div>
       )}
+      {!isEmpty(photos) && <RegisterRoomPhotoCardList photos={photos} />}
+      <RegisterRoomFooter
+        prevHref='/room/register/conveniences'
+        nextHref='/room/register/description'
+      />
     </Container>
   );
 };
