@@ -6,6 +6,9 @@ import Button from '../../common/Button';
 import styled from 'styled-components';
 import palette from '../../../styles/palette';
 import BackArrowIcon from '../../../public/static/svg/register/register_room_footer_back_arrow.svg';
+import { useSelector } from '../../../store';
+import { useRouter } from 'next/dist/client/router';
+import { registerRoomAPI } from '../../../lib/api/room';
 
 const Container = styled.footer`
   background-color: #fff;
@@ -33,8 +36,25 @@ const Container = styled.footer`
 `;
 
 const RegisterRoomSubmitFooter: React.FC = () => {
+  const router = useRouter();
+
+  const userId = useSelector((state) => state.user.id);
+  const registerRoom = useSelector((state) => state.registerRoom);
+
   // 등록하기
-  const onClickRegisterRoom = () => {};
+  const onClickRegisterRoom = async () => {
+    const registerRoomBody = {
+      ...registerRoom,
+      hostId: userId,
+    };
+
+    try {
+      await registerRoomAPI(registerRoomBody);
+      router.push('/');
+    } catch (e) {
+      console.log(e);
+    }
+  };
 
   return (
     <Container>
