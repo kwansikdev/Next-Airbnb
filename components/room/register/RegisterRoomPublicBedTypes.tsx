@@ -10,7 +10,7 @@ import styled from 'styled-components';
 import palette from '../../../styles/palette';
 import Button from '../../common/Button';
 import Counter from '../../common/Counter';
-import { registerRoomAictions } from '../../../store/registerRoom';
+import { registerRoomActions } from '../../../store/registerRoom';
 import Selector from '../../common/Selector';
 
 const Container = styled.li`
@@ -88,7 +88,7 @@ const RegisterRoomPublicBedTypes: React.FC = () => {
             침대 {totalBedsCount}개 {bedText}
           </p>
         </div>
-        <Button color='white' styleType='register' onClick={() => setOpened(!opened)}>
+        <Button color='white' width='161px' onClick={() => setOpened(!opened)}>
           {opened && '완료'}
           {!opened && (totalBedsCount === 0 ? '침대 추가하기' : '침대 수정하기')}
         </Button>
@@ -102,7 +102,7 @@ const RegisterRoomPublicBedTypes: React.FC = () => {
                 value={publicBedList.find((bed) => bed.type === type)?.count || 0}
                 onChange={(value) =>
                   dispatch(
-                    registerRoomAictions.setPublicBedTypeCount({
+                    registerRoomActions.setPublicBedTypeCount({
                       type,
                       count: value,
                     }),
