@@ -145,9 +145,6 @@ const RegisterRoomBuilding: React.FC = () => {
 
   // 숙소 유형 변경 시
   const onChangeRoomType = (value: string) => {
-    console.log(value);
-    // const selected = e.target.value;
-
     dispatch(registerRoomActions.setRoomType(value as 'entire' | 'private' | 'public'));
   };
 

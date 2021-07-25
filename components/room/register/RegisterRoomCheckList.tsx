@@ -1,6 +1,9 @@
 import { isEmpty } from 'lodash';
 import React, { useMemo } from 'react';
 
+import RegisterRoomSubmitFooter from './RegisterRoomSubmitFooter';
+import RegisterRoomFooter from './RegisterRoomFooter';
+
 import { useSelector } from '../../../store';
 
 import styled from 'styled-components';
@@ -74,7 +77,7 @@ const RegisterRoomCheckList: React.FC = () => {
   const isAmenitiesActived = useMemo(() => {
     const { amenities } = registerRoom;
 
-    if (isLocationActived) return false;
+    if (!isLocationActived) return false;
 
     return true;
   }, []);
@@ -87,6 +90,8 @@ const RegisterRoomCheckList: React.FC = () => {
 
     return true;
   }, []);
+
+  console.log();
 
   // 7단계: 사진 항목이 다 채워져 있는지
   const isPhotoActived = useMemo(() => {
@@ -222,6 +227,14 @@ const RegisterRoomCheckList: React.FC = () => {
           inProgress={stepInProgress === 'date'}
         />
       </ul>
+      {isDateActived ? (
+        <RegisterRoomSubmitFooter />
+      ) : (
+        <RegisterRoomFooter
+          prevHref='/room/register/date'
+          nextHref={`/room/register/${stepInProgress}`}
+        />
+      )}
     </Container>
   );
 };
