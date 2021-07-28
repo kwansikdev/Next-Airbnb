@@ -32,6 +32,11 @@ const getButtonColor = (color: string, colorReverse: boolean) => {
         background-color: ${palette.bittersweet};
         color: #fff;
       `;
+    case 'amaranth':
+      return css`
+        background-color: ${palette.amaranth};
+        color: white;
+      `;
     default:
       return css`
         background-color: #fff;
@@ -89,7 +94,7 @@ const Container = styled.button<StyledButtonProps>`
 
 interface Props extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   children: React.ReactNode;
-  color?: 'dark_cyan' | 'white' | 'bittersweet';
+  color?: 'dark_cyan' | 'white' | 'bittersweet' | 'amaranth';
   width?: string;
   size?: 'small' | 'midium';
   colorReverse?: boolean;
