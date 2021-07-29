@@ -1,6 +1,6 @@
 import React from 'react';
 
-import DatePicker from '../../../components/common/DatePicker';
+import DatePicker from '../../common/DatePicker';
 import useSearchRoomDate from '../../../hooks/useSearchRoomDate';
 
 import styled from 'styled-components';
