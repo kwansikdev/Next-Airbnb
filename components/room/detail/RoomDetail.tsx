@@ -1,5 +1,7 @@
 import React from 'react';
 
+import RoomDetailPhotos from './RoomDetailPhotos';
+
 import { useSelector } from '../../../store';
 
 import styled from 'styled-components';
@@ -37,6 +39,7 @@ const RoomDetail: React.FC = () => {
       <p className='room-detail-location'>
         {room.district}, {room.city}, {room.country}
       </p>
+      <RoomDetailPhotos />
     </Container>
   );
 };
