@@ -1,6 +1,6 @@
 import React from 'react';
 import { NextPage } from 'next';
-import Home from './home/Home';
+import Home from '../components/home/Home';
 
 const index: NextPage = () => {
   return <Home />;

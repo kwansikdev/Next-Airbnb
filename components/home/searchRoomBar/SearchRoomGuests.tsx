@@ -3,8 +3,8 @@ import OutsideClickHandler from 'react-outside-click-handler';
 import { useDispatch } from 'react-redux';
 
 import styled from 'styled-components';
-import Counter from '../../../components/common/Counter';
-import SearchRoomButton from '../../../components/home/searchRoomBar/SearchRoomButton';
+import Counter from '../../common/Counter';
+import SearchRoomButton from './SearchRoomButton';
 import { useSelector } from '../../../store';
 import { searchRoomActions } from '../../../store/searchRoom';
 import palette from '../../../styles/palette';

@@ -35,7 +35,7 @@ const Container = styled.div`
     }
 
     input {
-      width: 100%100px;
+      width: 100%;
       border: 0;
       outline: none;
       font-size: 14px;
