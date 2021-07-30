@@ -1,8 +1,11 @@
 import React, { useState } from 'react';
+import dynamic from 'next/dynamic';
 import { format } from 'date-fns';
 import RoomList from './RoomList';
 
 import { useSelector } from '../../../store';
+
+const RoomListMap = dynamic(() => import('./RoomListMap'), { ssr: false });
 
 import styled from 'styled-components';
 import palette from '../../../styles/palette';
@@ -104,6 +107,7 @@ const RoomMain: React.FC = () => {
       </div>
       <div className='room-list-wrapper'>
         <RoomList showMap={showMap} />
+        {showMap && <RoomListMap showMap={showMap} setShowMap={setShowMap} />}
       </div>
     </Container>
   );
