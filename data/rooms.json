@@ -1,1 +1,49 @@
-[]
+[
+  {
+    "id": 1,
+    "largeBuildingType": "별채",
+    "buildingType": "게스트용 별채",
+    "roomType": "entire",
+    "isSetUpForGuest": true,
+    "maximumGuestCount": 2,
+    "bedroomCount": 1,
+    "bedCount": 1,
+    "bedList": [{ "id": 1, "beds": [{ "type": "퀸", "count": 1 }] }],
+    "publicBedList": [],
+    "bathroomCount": 1,
+    "bathroomType": "private",
+    "country": "대한민국",
+    "city": "강원도",
+    "district": "강릉시",
+    "streetAddress": "창해로 10-1",
+    "detailAddress": "",
+    "postcode": "25556",
+    "latitude": 37.77316761937544,
+    "longitude": 128.94603486993012,
+    "amenities": [
+      "무선 인터넷",
+      "에어컨",
+      "게스트 전용 출입문",
+      "샴푸",
+      "헤어 드라이어",
+      "TV",
+      "난방",
+      "벽난로",
+      "옷장/서랍장"
+    ],
+    "conveniences": ["주방", "수영장", "주차", "세탁 공간 - 세탁기"],
+    "photos": [
+      "https://kwansikdev-next-airbnb.s3.amazonaws.com/pool1__49fde77a-aab9-4aa5-a7c4-5e5a6c982994.jpeg",
+      "https://kwansikdev-next-airbnb.s3.ap-northeast-2.amazonaws.com/pool2__1e1c9680-a378-4121-8340-6ab418ce927b.jpeg",
+      "https://kwansikdev-next-airbnb.s3.ap-northeast-2.amazonaws.com/pool3__c19af759-2818-4afa-ac0c-72627ac30eae.jpeg"
+    ],
+    "description": "아름다운 강릉 안목해변에 위치한 펜션\n모던하고 깔끔한 인테리어, 마음까지 시원해지는 루프탑 휴게공간까지 완벽하게 준비되어 신규오픈 했습니다.\n\n[인터넷]\n무료 wi-fi\n\n[루프탑]\n루프탑 포토존 및 휴게공간 이용가능 (저녁9시까지)\n우천시 이용불가\n\n펜션 내 엘리베이터 이용가능\n안목해변 도보30초거리\n무료주차 가능\n\n강릉 커피거리 내 위치\n송정해변 도보 3~4분\n안목해변 앞",
+    "title": "#환상적인 #오션뷰 #풀빌라펜션",
+    "price": 80000,
+    "startDate": "2021-08-02T00:00:00.000Z",
+    "endDate": "2021-08-31T00:00:00.000Z",
+    "hostId": 1,
+    "createdAt": "2021-08-01T13:45:03.255Z",
+    "updatedAt": "2021-08-01T13:45:03.255Z"
+  }
+]
