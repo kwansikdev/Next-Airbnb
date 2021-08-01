@@ -59,6 +59,3 @@ const RegisterRoomPrice: React.FC = () => {
   );
 };
 export default RegisterRoomPrice;
-function makeMoneyStringString(price: number): string | number | readonly string[] | undefined {
-  throw new Error('Function not implemented.');
-}

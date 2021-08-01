@@ -45,7 +45,11 @@ const Container = styled.div`
       font-weight: 800;
     }
 
-    .room-detail-spac-counts {
+    .room-detail-space-counts {
+      font-size: 14px;
+    }
+
+    .room-detail-divider {
       background-color: ${palette.gray_dd};
       width: 100%;
       height: 1px;
@@ -58,11 +62,12 @@ const Container = styled.div`
     }
   }
 
-  .room-detatil-bed-type-label {
+  .room-detail-bed-type-label {
     margin-bottom: 24px;
     font-size: 22px;
     font-weight: 600;
   }
+
   .room-detail-bed-type-list {
     display: flex;
 
@@ -85,13 +90,13 @@ const Container = styled.div`
     }
   }
 
-  .room-detatil-conveniences-label {
+  .room-detail-conveniences-label {
     margin-bottom: 24px;
     font-size: 22px;
     font-weight: 600;
   }
 
-  .room-detatil-conveniences-list {
+  .room-detail-conveniences-list {
     display: flex;
     flex-wrap: wrap;
     width: 100%;
@@ -179,7 +184,7 @@ const RoomDetail: React.FC = () => {
             <>
               <p className='room-detail-conveniences-label'>편의시설</p>
               <ul className='room-detail-conveniences-list'>
-                {room.conveniences.map((amenity, index) => (
+                {room.amenities.map((amenity, index) => (
                   <li key={index}>
                     <RoomAmenityIcon amenity={amenity} />
                     {amenity}

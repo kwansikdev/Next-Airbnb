@@ -5,6 +5,7 @@ interface IProps {
 }
 
 const RoomAmentityIcon: React.FC<IProps> = ({ amenity }) => {
+  console.log(amenity);
   const iconUrl = () => {
     switch (amenity) {
       case 'TV':
@@ -35,6 +36,8 @@ const RoomAmentityIcon: React.FC<IProps> = ({ amenity }) => {
         return '';
     }
   };
+
+  console.log('url: ', iconUrl());
   return <img src={iconUrl()} alt='amenity-icon' />;
 };
 

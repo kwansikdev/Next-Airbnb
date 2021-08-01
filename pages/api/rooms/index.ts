@@ -19,6 +19,10 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
     try {
       const rooms = Data.room.getList();
 
+      console.log(rooms);
+
+      console.log(latitude, longitude);
+
       // 위치로 필터링 하기
       const filteredRooms = rooms.filter((room) => {
         if (latitude && latitude !== '0' && longitude && longitude !== '0') {
@@ -62,17 +66,26 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
         return true;
       });
 
-      // 개수 자르기
-      const limitedRooms = rooms.splice(0 + (Number(page) - 1) * Number(limit), Number(limit));
+      console.log('filteredRooms: ', filteredRooms);
+
+      //* 갯수 자르기
+      const limitedRooms = filteredRooms.splice(
+        0 + (Number(page) - 1) * Number(limit),
+        Number(limit),
+      );
+
+      console.log('limitedRooms: ', limitedRooms);
 
       // host 정보 넣기
       const roomsWithHost = await Promise.all(
-        limitedRooms.map(async (room) => {
+        filteredRooms.map(async (room) => {
           const host = Data.user.find({ id: room.hostId });
 
           return { ...room, host };
         }),
       );
+
+      console.log('roomsWithHost: ', roomsWithHost);
 
       res.statusCode = 200;
       return res.send(roomsWithHost);

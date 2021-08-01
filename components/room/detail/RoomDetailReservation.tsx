@@ -1,7 +1,12 @@
 import React, { useMemo, useRef, useState } from 'react';
+import { useRouter } from 'next/router';
 import OutsideClickHandler from 'react-outside-click-handler';
+import { differenceInDays } from 'date-fns';
 
 import { useSelector } from '../../../store';
+
+import { makeReservationAPI } from '../../../lib/api/reservation';
+import { makeMoneyString } from '../../../lib/utils';
 
 import Button from '../../common/Button';
 import Counter from '../../common/Counter';
@@ -12,8 +17,6 @@ import useModal from '../../../hooks/useModal';
 
 import styled from 'styled-components';
 import palette from '../../../styles/palette';
-import { makeReservationAPI } from '../../../lib/api/reservation';
-import { useRouter } from 'next/router';
 
 const Container = styled.div`
   position: sticky;
@@ -29,6 +32,7 @@ const Container = styled.div`
     margin-bottom: 24px;
     font-size: 22px;
     font-weight: 600;
+    word-break: keep-all;
   }
 
   .room-detail-reservation-inputs {
@@ -38,11 +42,12 @@ const Container = styled.div`
     border-radius: 8px;
 
     .room-detail-reservation-date-inputs {
+      display: flex;
       width: 100%;
       height: 56px;
       border-bottom: 1px solid ${palette.gray_71};
 
-      .room-detai-reservation-check-in {
+      .room-detail-reservation-check-in {
         position: relative;
         top: 0;
         left: 0;
@@ -124,7 +129,7 @@ const Container = styled.div`
         }
       }
 
-      .room-detail-reservatopm-guests-popup {
+      .room-detail-reservation-guests-popup {
         background-color: #fff;
         position: absolute;
         top: 60px;
@@ -142,7 +147,7 @@ const Container = styled.div`
         }
       }
 
-      .mn-24 {
+      .mb-24 {
         margin-bottom: 24px;
       }
     }
@@ -193,21 +198,6 @@ const RoomDetailReservation: React.FC = () => {
 
   // 예약하기 클릭 시
   const onClickReservationButton = async () => {
-    if (checkInRef.current && !startDate) {
-      checkInRef.current.focus();
-    } else if (checkOutRef.current && !endDate) {
-      checkOutRef.current.focus();
-    }
-  };
-
-  //
-  const getGuestCountText = useMemo(
-    () => `게스트 ${adultCount + childrenCount}명 ${infantCount ? `, 유가 ${infantCount}명` : ''}`,
-    [adultCount, childrenCount, infantCount],
-  );
-
-  //
-  const onClickReservation = async () => {
     if (!userId) {
       openModal();
     } else if (checkInRef.current && !startDate) {
@@ -236,92 +226,100 @@ const RoomDetailReservation: React.FC = () => {
     }
   };
 
+  //
+  const getGuestCountText = useMemo(
+    () => `게스트 ${adultCount + childrenCount}명 ${infantCount ? `, 유가 ${infantCount}명` : ''}`,
+    [adultCount, childrenCount, infantCount],
+  );
+
   return (
     <Container>
       <p className='room-detail-reservation-info'>요금을 확인하려면 날짜를 입력하세요.</p>
-      <div className='room-detail-reservation-date-inputs'>
-        <div className='room-detail-reservation-check-in'>
-          <label ref={checkInRef}>
-            체크인
-            <DatePicker
-              placeholderText='날짜 추가'
-              popperPlacement='top-end'
-              disabledKeyboardNavigation
-              selected={startDate}
-              openToDate={new Date()}
-              selectsStart
-              onChange={(date) => setStartDate(date as Date)}
-              startDate={startDate as Date}
-              endDate={new Date(endDate as Date)}
-              minDate={new Date(room.startDate)}
-              maxDate={new Date(room.endDate)}
-            />
-          </label>
-        </div>
-        <div className='room-detail-reservation-check-out'>
-          <label ref={checkOutRef}>
-            체크아웃
-            <DatePicker
-              placeholderText='날짜 추가'
-              popperPlacement='top-end'
-              disabledKeyboardNavigation
-              selected={endDate}
-              openToDate={new Date()}
-              selectsStart
-              onChange={(date) => setEndDate(date as Date)}
-              startDate={startDate as Date}
-              endDate={new Date(endDate as Date)}
-              minDate={new Date(startDate as Date)}
-              maxDate={new Date(room.endDate)}
-            />
-          </label>
-        </div>
-      </div>
-      <div className='room-detail-reservation-guests-count-wrapper'>
-        <OutsideClickHandler
-          onOutsideClick={() => {
-            setGuestCountPopupOpened(false);
-          }}
-        >
-          <div
-            role='presentation'
-            className='room-detail-reservation-guests-count'
-            onClick={() => setGuestCountPopupOpened(!guestCountPopupOpened)}
-          >
-            <span>인원</span>
-            <p>{getGuestCountText}</p>
-          </div>
-          {guestCountPopupOpened && (
-            <div className='room-detail-reservation-guests-popup'>
-              <div className='mb-24'>
-                <Counter
-                  label='성인'
-                  description='만 13세 이상'
-                  minValue={1}
-                  value={adultCount}
-                  onChange={(count) => setAdultCount(count)}
-                />
-              </div>
-              <div className='mb-24'>
-                <Counter
-                  label='어린이'
-                  description='2~12세'
-                  value={childrenCount}
-                  onChange={(count) => setChildrenCount(count)}
-                />
-              </div>
-              <Counter
-                label='유아'
-                description='2세 미만'
-                value={infantCount}
-                onChange={(count) => setInfantCount(count)}
+      <div className='room-detail-reservation-inputs'>
+        <div className='room-detail-reservation-date-inputs'>
+          <div className='room-detail-reservation-check-in'>
+            <label ref={checkInRef}>
+              체크인
+              <DatePicker
+                placeholderText='날짜추가'
+                popperPlacement='top-end'
+                selected={startDate}
+                onChange={(date) => setStartDate(date as Date)}
+                openToDate={new Date()}
+                selectsStart
+                startDate={startDate as Date}
+                endDate={new Date(endDate as Date)}
+                disabledKeyboardNavigation
+                minDate={new Date(room.startDate)}
+                maxDate={new Date(room.endDate)}
               />
-              <p className='room-detail-reservation-guests-info'>
-                최대 {room.maximumGuestCount}명. 유아는 숙박인원에 포함되지 않습니다.
-              </p>
+            </label>
+          </div>
+          <div className='room-detail-reservation-check-out'>
+            <label ref={checkOutRef}>
+              체크아웃
+              <DatePicker
+                placeholderText='날짜추가'
+                popperPlacement='top-end'
+                selected={endDate}
+                onChange={(date) => setEndDate(date as Date)}
+                selectsEnd
+                openToDate={new Date()}
+                startDate={startDate as Date}
+                endDate={new Date(endDate as Date)}
+                disabledKeyboardNavigation
+                minDate={new Date(startDate as Date)}
+                maxDate={new Date(room.endDate)}
+              />
+            </label>
+          </div>
+        </div>
+        <div className='room-detail-reservation-guests-count-wrapper'>
+          <OutsideClickHandler
+            onOutsideClick={() => {
+              setGuestCountPopupOpened(false);
+            }}
+          >
+            <div
+              role='presentation'
+              className='room-detail-reservation-guests-count'
+              onClick={() => setGuestCountPopupOpened(!guestCountPopupOpened)}
+            >
+              <span>인원</span>
+              <p>{getGuestCountText}</p>
             </div>
-          )}
-        </OutsideClickHandler>
+            {guestCountPopupOpened && (
+              <div className='room-detail-reservation-guests-popup'>
+                <div className='mb-24'>
+                  <Counter
+                    label='성인'
+                    description='만 13세 이상'
+                    minValue={1}
+                    value={adultCount}
+                    onChange={(count) => setAdultCount(count)}
+                  />
+                </div>
+                <div className='mb-24'>
+                  <Counter
+                    label='어린이'
+                    description='2~12세'
+                    value={childrenCount}
+                    onChange={(count) => setChildrenCount(count)}
+                  />
+                </div>
+                <Counter
+                  label='유아'
+                  description='2세 미만'
+                  value={infantCount}
+                  onChange={(count) => setInfantCount(count)}
+                />
+                <p className='room-detail-reservation-guests-info'>
+                  최대 {room.maximumGuestCount}명. 유아는 숙박인원에 포함되지 않습니다.
+                </p>
+              </div>
+            )}
+          </OutsideClickHandler>
+        </div>
       </div>
 
       <Button color='amaranth' width='100%' onClick={onClickReservationButton}>
@@ -330,12 +328,31 @@ const RoomDetailReservation: React.FC = () => {
       {startDate && endDate && (
         <>
           <p className='room-detail-reservation-price-date'>
-            {price} X {endDate.getDate() - startDate.getDate()}박
-            <span>{Number(price) * (endDate.getDay() - startDate.getDay())}</span>
+            {price} X {differenceInDays(endDate, startDate)}박 X{' '}
+            {adultCount + childrenCount + infantCount}명
+            <span>
+              ₩
+              {makeMoneyString(
+                String(
+                  Number(price) *
+                    differenceInDays(endDate, startDate) *
+                    (adultCount + childrenCount + infantCount),
+                ),
+              )}
+            </span>
           </p>
           <p className='room-detail-reservation-total-price'>
             총 합계
-            <span>{Number(price) * (endDate.getDay() - startDate.getDay())}</span>
+            <span>
+              ₩
+              {makeMoneyString(
+                String(
+                  Number(price) *
+                    differenceInDays(endDate, startDate) *
+                    (adultCount + childrenCount + infantCount),
+                ),
+              )}
+            </span>
           </p>
         </>
       )}

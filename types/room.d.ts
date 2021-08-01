@@ -71,7 +71,7 @@ export type RoomType = {
   streetAddress: string;
   detailAddress: string;
   postcode: string;
-  amentities: string[];
+  amenities: string[];
   conveniences: string[];
   photos: string[];
   description: string;
