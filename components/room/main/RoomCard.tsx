@@ -82,7 +82,7 @@ const Container = styled.li<{ showMap: boolean }>`
   ${({ showMap }) =>
     showMap &&
     css`
-      width: 100% !important;
+      width: 60% !important;
       margin: 0;
       padding: 24px 0;
       border-bottom: 1px solid ${palette.gray_eb};
@@ -194,7 +194,7 @@ const RoomCard: React.FC<Props> = ({ room, showMap }) => {
             <div className='room-card-text-divider' />
 
             <p className='room-card-price'>
-              <b>₩{room.price} </b>/1박
+              <b>₩{makeMoneyString(String(room.price))} </b>/1박
             </p>
             {!!remainDays && (
               <p className='room-card-total-price'>

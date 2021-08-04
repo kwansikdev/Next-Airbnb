@@ -8,7 +8,7 @@ const Container = styled.div`
   position: fixed;
   top: 80px;
   right: 0;
-  width: calc(100% - 840px);
+  width: 40%;
   height: calc(100vh - 80px);
 
   > div {
@@ -47,7 +47,7 @@ const Container = styled.div`
     height: 40px;
     border: 0;
     border-radius: 8px;
-    background-image: url('/static/svg/room/map/google_close.svg');
+    background-image: url('/static/svg/map/google_close.svg');
     background-repeat: no-repeat;
     background-position: center;
     outline: none;
@@ -94,8 +94,8 @@ const RoomListMap: React.FC<Props> = ({ showMap, setShowMap }) => {
     if (mapRef.current) {
       const map = new google.maps.Map(mapRef.current, {
         center: {
-          lat: currentLocation.latitude,
-          lng: currentLocation.longitude,
+          lat: rooms[0].latitude,
+          lng: rooms[0].longitude,
         },
         zoom: 14,
       });
