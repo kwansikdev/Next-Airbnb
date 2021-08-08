@@ -1,19 +1,23 @@
-import React from 'react';
-import styled from 'styled-components';
+import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
-import AirbnbLogoIcon from '../public/static/svg/logo/logo.svg';
-import AirbnbLogoTextIcon from '../public/static/svg/logo/logo_text.svg';
-import palette from '../styles/palette';
-import { useSelector } from '../store';
+import { useRouter } from 'next/router';
 
 import HeaderAuths from './HeaderAuths';
 import HeaderUserProfile from './HeaderUserProfile';
+import SearchRoomMiniBar from './home/searchRoomBar/SearchRoomMiniBar';
+
+import { useSelector } from '../store';
+
+import styled from 'styled-components';
+import palette from '../styles/palette';
+import AirbnbLogoIcon from '../public/static/svg/logo/logo.svg';
+import AirbnbLogoTextIcon from '../public/static/svg/logo/logo_text.svg';
 
 const Container = styled.div`
   position: sticky;
   top: 0;
   width: 100%;
-  height: 80px;
+  min-height: 80px;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -21,6 +25,7 @@ const Container = styled.div`
   background-color: white;
   box-shadow: rgba(0, 0, 0, 0.08) 0px 1px 12px;
   z-index: 10;
+
   .header-logo-wrapper {
     display: flex;
     align-items: center;
@@ -115,7 +120,15 @@ const Container = styled.div`
 `;
 
 const Header: React.FC = () => {
+  const router = useRouter();
   const isLogged = useSelector((state) => state.user.isLogged);
+  const [isSearched, setIsSearched] = useState<boolean>(
+    () => Object.keys(router.query).length === 0,
+  );
+
+  useEffect(() => {
+    setIsSearched(Object.keys(router.query).length === 0);
+  }, [router.query]);
   return (
     <Container>
       <Link href='/'>
@@ -124,6 +137,7 @@ const Header: React.FC = () => {
           <AirbnbLogoTextIcon />
         </a>
       </Link>
+      {/* {!isSearched && <SearchRoomMiniBar />} */}
       {!isLogged && <HeaderAuths />}
       {isLogged && <HeaderUserProfile />}
     </Container>

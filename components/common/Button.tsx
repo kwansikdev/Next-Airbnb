@@ -87,13 +87,14 @@ const Container = styled.button<StyledButtonProps>`
 
   ${(props) => getButtonColor(props.color || '', props.colorReverse)};
   ${(props) => getButtonSize(props.size)}
+
   svg {
     margin-right: 12px;
   }
 `;
 
 interface Props extends React.ButtonHTMLAttributes<HTMLButtonElement> {
-  children: React.ReactNode;
+  children?: React.ReactNode;
   color?: 'dark_cyan' | 'white' | 'bittersweet' | 'amaranth';
   width?: string;
   size?: 'small' | 'midium';

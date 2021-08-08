@@ -155,7 +155,6 @@ const RegisterRoomPhotoCardList: React.FC<Props> = ({ photos }) => {
 
   // 사진 삭제하기
   const deletePhoto = (index: number) => {
-    console.log(index);
     const newPhotos = [...photos];
 
     newPhotos.splice(index, 1);

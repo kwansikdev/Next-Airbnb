@@ -105,7 +105,6 @@ const RoomListMap: React.FC<Props> = ({ showMap, setShowMap }) => {
           position: { lat: room.latitude, lng: room.longitude },
           map,
         });
-        console.log(marker);
       });
     }
   };

@@ -3,14 +3,14 @@ import React, { useEffect, useRef, useState } from 'react';
 import OutsideClickHandler from 'react-outside-click-handler';
 import { useDispatch } from 'react-redux';
 
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import useDebounce from '../../../hooks/useDebounce';
 import { getPlaceAPI, searchPlacesAPI } from '../../../lib/api/map';
 import { useSelector } from '../../../store';
 import { searchRoomActions } from '../../../store/searchRoom';
 import palette from '../../../styles/palette';
 
-const Container = styled.div`
+const Container = styled.div<{ type: string }>`
   position: relative;
   width: 100%;
   height: 70px;
@@ -18,15 +18,26 @@ const Container = styled.div`
   border-radius: 12px;
   cursor: pointer;
 
+  ${({ type }) =>
+    type === 'header' &&
+    css`
+      height: 46px;
+    `};
+
   &:hover {
     border-color: ${palette.gray_dd};
   }
 
+  > div {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    height: 100%;
+    padding-left: 20px;
+  }
+
   .search-room-bar-location-texts {
-    position: absolute;
-    top: 16px;
-    left: 20px;
-    width: calc(100% - 40px);
+    width: calc(100% - 20px);
 
     .search-room-bar-location-label {
       margin-bottom: 4px;
@@ -77,7 +88,11 @@ const Container = styled.div`
   }
 `;
 
-const SearchRoomBarLocation: React.FC = () => {
+interface Props {
+  type?: 'main' | 'header';
+}
+
+const SearchRoomBarLocation: React.FC<Props> = ({ type = 'main' }) => {
   const dispatch = useDispatch();
   const location = useSelector((state) => state.searchRoom.location);
   const searchKeyword = useDebounce(location, 500);
@@ -164,10 +179,10 @@ const SearchRoomBarLocation: React.FC = () => {
   }, [searchKeyword]);
 
   return (
-    <Container onClick={onClickInput}>
+    <Container type={type} onClick={onClickInput}>
       <OutsideClickHandler onOutsideClick={() => setPopupOpened(false)}>
         <div className='search-room-bar-location-texts'>
-          <p className='search-room-bar-location-label'>인원</p>
+          {type === 'main' && <p className='search-room-bar-location-label'>위치</p>}
           <input
             ref={inputRef}
             value={location}
