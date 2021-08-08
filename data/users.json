@@ -1,0 +1,11 @@
+[
+  {
+    "id": 1,
+    "email": "host@host.com",
+    "firstname": "김",
+    "lastname": "하영",
+    "password": "$2a$08$tFGQrm2Z7y9Hmd0kWxq/PumsiwYvEhInMJphXaPwTP74pcCjC3Z6C",
+    "birthday": "1993-04-24T00:00:00.000Z",
+    "profileImage": "/static/image/user/default_user_profile_image.jpg"
+  }
+]

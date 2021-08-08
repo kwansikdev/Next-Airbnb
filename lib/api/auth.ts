@@ -1,0 +1,22 @@
+import axios from './index';
+import { UserType } from '../../types/user';
+
+// 회원가입 body
+interface SignUpAPIBody {
+  email: string;
+  firstname: string;
+  lastname: string;
+  password: string;
+  birthday: string;
+}
+
+// 회원가입 api
+export const signupAPI = (body: SignUpAPIBody) => axios.post<UserType>('/api/auth/signup', body);
+
+export const loginAPI = (body: { email: string; password: string }) =>
+  axios.post<UserType>('/api/auth/login', body);
+
+export const logoutAPI = () => axios.delete('/api/auth/logout');
+
+// 쿠키의 access_token의 유저 정보를 받아오는 api
+export const meAPI = () => axios.get<UserType>('/api/auth/me');
